@@ -5,9 +5,9 @@ module CodeClimate
       class << self
         def info
           {
-            head:         `git log -1 --pretty=format:'%H'`,
-            committed_at: committed_at,
-            branch:       branch_from_git,
+            :head =>         `git log -1 --pretty=format:'%H'`,
+            :committed_at => committed_at,
+            :branch =>       branch_from_git,
           }
         end
 

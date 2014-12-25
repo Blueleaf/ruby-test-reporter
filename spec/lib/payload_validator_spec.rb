@@ -4,13 +4,13 @@ module CodeClimate::TestReporter
   describe PayloadValidator do
     let(:payload) {
       {
-        git: {
-          committed_at: 1389603672,
-          head:         "4b968f076d169c3d98089fba27988f0d52ba803d"
+        :git => {
+          :committed_at => 1389603672,
+          :head =>         "4b968f076d169c3d98089fba27988f0d52ba803d"
         },
-        run_at: 1379704336,
-        source_files: [
-          { coverage: "[0,3,4]", name: "user.rb" }
+        :run_at => 1379704336,
+        :source_files => [
+          { :coverage => "[0,3,4]", :name => "user.rb" }
         ]
       }
     }
@@ -73,14 +73,14 @@ module CodeClimate::TestReporter
     end
 
     it "raises if source files don't have names" do
-      payload[:source_files] = [{ coverage: "[1,1]" }]
+      payload[:source_files] = [{ :coverage => "[1,1]" }]
       expect {
         PayloadValidator.validate(payload)
       }.to raise_error(InvalidPayload, /Invalid source files/)
     end
 
     it "raises if source files don't have coverage" do
-      payload[:source_files] = [{ name: "foo.rb" }]
+      payload[:source_files] = [{ :name => "foo.rb" }]
       expect {
         PayloadValidator.validate(payload)
       }.to raise_error(InvalidPayload, /Invalid source files/)

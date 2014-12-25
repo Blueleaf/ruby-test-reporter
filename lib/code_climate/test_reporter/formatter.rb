@@ -1,4 +1,4 @@
-# encoding: utf-8
+# :encoding => utf-8
 
 require "tmpdir"
 require "securerandom"
@@ -48,36 +48,36 @@ module CodeClimate
           totals[:missed]     += file.missed_lines.count
 
           {
-            name:             short_filename(file.filename),
-            blob_id:          CalculateBlob.new(file.filename).blob_id,
-            coverage:         file.coverage.to_json,
-            covered_percent:  round(file.covered_percent, 2),
-            covered_strength: round(file.covered_strength, 2),
-            line_counts: {
-              total:    file.lines.count,
-              covered:  file.covered_lines.count,
-              missed:   file.missed_lines.count
+            :name =>             short_filename(file.filename),
+            :blob_id =>          CalculateBlob.new(file.filename).blob_id,
+            :coverage =>         file.coverage.to_json,
+            :covered_percent =>  round(file.covered_percent, 2),
+            :covered_strength => round(file.covered_strength, 2),
+            :line_counts => {
+              :total =>    file.lines.count,
+              :covered =>  file.covered_lines.count,
+              :missed =>   file.missed_lines.count
             }
           }
         end
 
         {
-          repo_token:       ENV["CODECLIMATE_REPO_TOKEN"],
-          source_files:     source_files,
-          run_at:           result.created_at.to_i,
-          covered_percent:  result.source_files.covered_percent.round(2),
-          covered_strength: result.source_files.covered_strength.round(2),
-          line_counts:      totals,
-          partial:          partial?,
-          git: Git.info,
-          environment: {
-            test_framework: result.command_name.downcase,
-            pwd:            Dir.pwd,
-            rails_root:     (Rails.root.to_s rescue nil),
-            simplecov_root: ::SimpleCov.root,
-            gem_version:    VERSION
+          :repo_token =>       ENV["CODECLIMATE_REPO_TOKEN"],
+          :source_files =>     source_files,
+          :run_at =>           result.created_at.to_i,
+          :covered_percent =>  result.source_files.covered_percent.round(2),
+          :covered_strength => result.source_files.covered_strength.round(2),
+          :line_counts =>      totals,
+          :partial =>          partial?,
+          :git => Git.info,
+          :environment => {
+            :test_framework => result.command_name.downcase,
+            :pwd =>            Dir.pwd,
+            :rails_root =>     (Rails.root.to_s rescue nil),
+            :simplecov_root => ::SimpleCov.root,
+            :gem_version =>    VERSION
           },
-          ci_service: ci_service_data
+          :ci_service => ci_service_data
         }
       end
 

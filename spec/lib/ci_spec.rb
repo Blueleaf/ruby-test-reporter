@@ -14,9 +14,9 @@ module CodeClimate::TestReporter
 
       it 'returns a hash of CI environment info' do
         expected_semaphore_hash = {
-          name: 'semaphore',
-          branch: 'master',
-          build_identifier: '1234'
+          :name => 'semaphore',
+          :branch => 'master',
+          :build_identifier => '1234'
         }
 
         expect(Ci.service_data(@env)).to include expected_semaphore_hash
